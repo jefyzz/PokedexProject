@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/core";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -8,10 +10,27 @@ import {
   View,
 } from "react-native";
 import { authFunc } from "../../../utils/firebase";
+import LogoSignIn from "../../components/LogoSignIn";
+import { setCurrentUser } from "../../store/user/userAction";
 
 const SignInScreen = () => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const unsubscribe = authFunc.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.replace("Home");
+      }
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+  }, [dispatch]);
 
   const handleSignUp = () => {
     authFunc
@@ -35,6 +54,13 @@ const SignInScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.logoContainer}>
+        <LogoSignIn />
+        <Text style={styles.textSignIn}>
+          Get full access to the pokédex by creating a new account or logging
+          into an existing account.
+        </Text>
+      </View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -73,6 +99,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  logoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingBottom: 50,
+  },
+  textSignIn: {
+    paddingTop: 30,
+    textAlign: "center",
+    fontSize: 16,
+    marginHorizontal: 5,
   },
   inputContainer: {
     width: "80%",

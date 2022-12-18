@@ -17,6 +17,8 @@ if (firebase.apps.length === 0) {
   app = firebase.auth();
 };
 
+const provider = new firebase.auth.GoogleAuthProvider()
+
 const authFunc = firebase.auth();
 
-export { authFunc };
+export { authFunc, provider };

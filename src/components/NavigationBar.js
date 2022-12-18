@@ -1,8 +1,8 @@
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Logo from "./Logo";
 
-export default function NavBar({ navigation }) {
-  const signInHandler = () => {};
+export default function NavBar() {
+  
   return (
     <View style={styles.signIn}>
       <Logo />
