@@ -3,7 +3,7 @@ import { authFunc } from "../../utils/firebase";
 import NavBar from "../components/NavigationBar";
 import SearchBox from "../components/SearchBox";
 import CardContainer from "../components/CardContainer";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../store/user/userSelector";
 
 export default function HomeScreen({ navigation }) {
@@ -21,6 +21,19 @@ export default function HomeScreen({ navigation }) {
   }
   return (
     <View style={styles.appContainer}>
+      {!currentUser ? (
+        <View style={styles.overlayContainer}>
+          <View style={styles.loginOverlayTextContainer}>
+            <TouchableOpacity onPress={handleSignIn}>
+              <Text style={styles.loginOverlayText}>
+                Login or Register to see all Pokemon!
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : (
+        <></>
+      )}
       <View style={styles.navBarContainer}>
         <NavBar />
         <Text style={styles.appVersion}>v1.0</Text>
@@ -77,5 +90,19 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontSize: 16,
+  },
+  loginOverlayTextContainer: {
+    position: "absolute",
+    width: "90%",
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 640,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  overlayContainer: {
+    // justifyContent: "center",
+    alignItems: "center",
   },
 });

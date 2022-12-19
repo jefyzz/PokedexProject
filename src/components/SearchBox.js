@@ -1,10 +1,14 @@
 import { TextInput, StyleSheet, View } from "react-native";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../store/user/userSelector";
 
 export default function SearchBox() {
+  const currentUser = useSelector(selectCurrentUser);
   const searchPokemonHandler = () => {};
   return (
     <View style={styles.searchContainer}>
       <TextInput
+        editable={currentUser ? true : false}
         style={styles.searchBox}
         placeholder="Search Pokémon by Name"
         onChangeText={searchPokemonHandler}

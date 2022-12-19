@@ -1,31 +1,45 @@
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text, FlatList } from "react-native";
 
-import { useDispatch, useSelector } from "react-redux";
-import { getPokemonsFetch } from "../store/api/apiAction";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../store/user/userSelector";
+import CardItem from "./CardItem";
 
 export default function CardContainer() {
-  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
   const pokemons = useSelector((state) => state.apiReducer.pokemons);
   return (
-    <View>
-      <Text>Pokemons: </Text>
-      <Button
-        onPress={() => dispatch(getPokemonsFetch())}
-        title="get pokemon"
-      />
-      <View>
-        <Text>
-          Users:
-          {pokemons &&
-            pokemons.results.map((pokemon) => (
-              <Text key={pokemon.name}>
-                {" "}{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-              </Text>
-            ))}
-        </Text>
-      </View>
+    <View style={styles.mainContainer}>
+      <Text style={{ paddingLeft: 9 }}>Pokemon:</Text>
+      {pokemons && (
+        <View style={styles.listContainer}>
+          <FlatList
+          scrollEnabled={!currentUser ? false : true}
+          showsVerticalScrollIndicator={false}
+          numColumns={3}
+          data={pokemons.results}
+          keyExtractor={pokemons.results.name}
+          renderItem={(pokemonData) => {
+            return (
+              <CardItem
+                name={pokemonData.item.name}
+                key={pokemonData.item.name}
+              />
+            );
+          }}
+        />
+        </View>
+      )}
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    paddingBottom: 50,
+  },
+  listContainer: {
+    alignItems: "center",
+    height: "94%"
+  }
+});

@@ -1,9 +1,11 @@
 import { StyleSheet, View, Text } from "react-native";
 
-const CardItem = (props) => {
+const CardItem = ({ name }) => {
   return (
     <View style={styles.cardsItem}>
-          <Text style={styles.cardsText}>{props.name}</Text>
+      <Text style={styles.cardsText}>
+        {name.charAt(0).toUpperCase() + name.slice(1)}
+      </Text>
     </View>
   );
 };
@@ -12,14 +14,11 @@ export default CardItem;
 
 const styles = StyleSheet.create({
   cardsItem: {
-    flexDirection: "row",
-    alignContent: "flex-start",
     margin: 8,
-    borderBottomColor: "#000",
-    // borderBottomWidth: 1,
     backgroundColor: "#ccc",
+    borderRadius: 10,
+    height: 120,
     width: 100,
-    height: 100,
   },
   cardsText: {
     color: "#000",
