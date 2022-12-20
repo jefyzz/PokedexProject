@@ -2,9 +2,9 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { authFunc } from "../../utils/firebase";
 import NavBar from "../components/NavigationBar";
 import SearchBox from "../components/SearchBox";
-import CardContainer from "../components/CardContainer";
-import { useSelector } from "react-redux";
+import CardContainer from "../components/card/CardContainer";
 import { selectCurrentUser } from "../store/user/userSelector";
+import { useSelector } from "react-redux";
 
 export default function HomeScreen({ navigation }) {
   const currentUser = useSelector(selectCurrentUser);

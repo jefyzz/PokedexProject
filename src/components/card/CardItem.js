@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
   },
   cardsText: {
     color: "#000",
-    padding: 8,
+    marginTop: 4,
+    alignSelf: "center",
+    fontSize: 16,
   },
 });
