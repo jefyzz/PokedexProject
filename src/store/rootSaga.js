@@ -1,6 +1,6 @@
-import { all, call } from "redux-saga/effects";
-import { apiSaga } from "./api/apiSaga";
+import { all } from "redux-saga/effects";
+import { pokemonsSagas } from "./pokemons/pokemonsSaga";
 
 export function* rootSaga() {
-  yield* all(call(apiSaga));
+  yield all([...pokemonsSagas]);
 }

@@ -9,13 +9,13 @@ import { useSelector } from "react-redux";
 export default function HomeScreen({ navigation }) {
   const currentUser = useSelector(selectCurrentUser);
   function handleSignIn() {
-    navigation.navigate("Signin");
+    navigation.replace("Signin");
   }
   function handleSignOut() {
     authFunc
       .signOut()
       .then(() => {
-        navigation.navigate("Signin");
+        navigation.replace("Signin");
       })
       .catch((e) => alert(e.message));
   }

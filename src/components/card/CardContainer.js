@@ -13,24 +13,22 @@ import { useNavigation } from "@react-navigation/core";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import CardItem from "./CardItem";
-import { pokemonsSelector } from "../../store/api/apiSelector";
-import { getPokemonsFetchStart } from "../../store/api/apiAction";
+import { pokemonsNamesSelector } from "../../store/pokemons/pokemonsSelector";
+import { getPokemonsNamesFetchStart } from "../../store/pokemons/pokemonsAction";
 
 export default function CardContainer() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const pokemons = useSelector(pokemonsSelector);
+  const pokemons = useSelector(pokemonsNamesSelector);
   const currentUser = useSelector(selectCurrentUser);
 
   function handleDetails(name) {
     navigation.navigate("Details", name);
   }
-  // console.log(pokemons);
   useEffect(() => {
     if (pokemons.length === 0) {
-      // console.log("EJECUTANDO");
-      dispatch(getPokemonsFetchStart());
+      dispatch(getPokemonsNamesFetchStart());
     }
   }, []);
 
@@ -41,7 +39,7 @@ export default function CardContainer() {
         <View style={styles.listContainer}>
           <FlatList
             onEndReachedThreshold={2}
-            onEndReached={() => dispatch(getPokemonsFetchStart())}
+            onEndReached={() => dispatch(getPokemonsNamesFetchStart())}
             scrollEnabled={!currentUser ? false : true}
             showsVerticalScrollIndicator={false}
             numColumns={3}

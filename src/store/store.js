@@ -1,31 +1,21 @@
-import {
-  // compose,
-  createStore,
-  applyMiddleware,
-} from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
-// import logger from "redux-logger";
+
 import { AsyncStorage } from "react-native";
 import { rootReducer } from "./rootReducer";
 import createSagaMiddleware from "@redux-saga/core";
 
-import { apiSaga } from "./api/apiSaga";
-
-// AsyncStorage.clear()
+import { rootSaga } from "./rootSaga";
 
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["user"],
+  whitelist: ["user"], // agregar pokemons cuando termine
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const sagaMiddleware = createSagaMiddleware();
-
-// const middleWares = [logger, sagaMiddleware];
-
-// const composedEnhancers = compose(applyMiddleware(...middleWares));
 
 export const store = createStore(
   persistedReducer,
@@ -33,6 +23,16 @@ export const store = createStore(
   applyMiddleware(sagaMiddleware)
 );
 
-sagaMiddleware.run(apiSaga);
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
+
+// compose,
+
+// import logger from "redux-logger";
+
+// AsyncStorage.clear()
+
+// const middleWares = [logger, sagaMiddleware];
+
+// const composedEnhancers = compose(applyMiddleware(...middleWares));
