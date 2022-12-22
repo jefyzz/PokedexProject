@@ -10,7 +10,7 @@ import rootSaga from './rootSaga';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['user', 'pokemonsReducer'], // agregar pokemons cuando termine
+  whitelist: ['user', 'pokemonsReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
