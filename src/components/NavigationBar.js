@@ -1,8 +1,7 @@
-import { View, StyleSheet } from "react-native";
-import Logo from "./Logo";
+import { View, StyleSheet } from 'react-native';
+import Logo from './Logo';
 
 export default function NavBar() {
-  
   return (
     <View style={styles.signIn}>
       <Logo />
@@ -12,7 +11,7 @@ export default function NavBar() {
 
 const styles = StyleSheet.create({
   signIn: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

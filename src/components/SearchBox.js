@@ -1,6 +1,6 @@
-import { TextInput, StyleSheet, View } from "react-native";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../store/user/userSelector";
+import { TextInput, StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import selectCurrentUser from '../store/user/userSelector';
 
 export default function SearchBox() {
   const currentUser = useSelector(selectCurrentUser);
@@ -8,7 +8,7 @@ export default function SearchBox() {
   return (
     <View style={styles.searchContainer}>
       <TextInput
-        editable={currentUser ? true : false}
+        editable={!!currentUser}
         style={styles.searchBox}
         placeholder="Search Pokémon by Name"
         onChangeText={searchPokemonHandler}
@@ -19,12 +19,12 @@ export default function SearchBox() {
 
 const styles = StyleSheet.create({
   searchContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     paddingTop: 30,
     paddingBottom: 10,
   },
   searchBox: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,

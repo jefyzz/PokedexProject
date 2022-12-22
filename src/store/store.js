@@ -1,27 +1,23 @@
-import { createStore, applyMiddleware } from "redux";
-import { persistStore, persistReducer } from "redux-persist";
+import { createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import createSagaMiddleware from '@redux-saga/core';
 
-import { AsyncStorage } from "react-native";
-import { rootReducer } from "./rootReducer";
-import createSagaMiddleware from "@redux-saga/core";
+import { AsyncStorage } from 'react-native';
+import rootReducer from './rootReducer';
 
-import { rootSaga } from "./rootSaga";
+import rootSaga from './rootSaga';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage: AsyncStorage,
-  whitelist: ["user"], // agregar pokemons cuando termine
+  whitelist: ['user', 'pokemonsReducer'], // agregar pokemons cuando termine
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const sagaMiddleware = createSagaMiddleware();
 
-export const store = createStore(
-  persistedReducer,
-  undefined,
-  applyMiddleware(sagaMiddleware)
-);
+export const store = createStore(persistedReducer, undefined, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
